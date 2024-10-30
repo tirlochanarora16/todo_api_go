@@ -1,0 +1,6 @@
+# tmp folder generate by "air" for hot reload
+/tmp 
+.air.toml
+
+# env file
+.env
