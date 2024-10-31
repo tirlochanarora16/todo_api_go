@@ -4,14 +4,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
+	"github.com/tirlochanarora16/todo_api_go/database"
 )
 
 func main() {
-	dsn := ""
-
-	_, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	err := database.EstablishDBConnection()
 
 	if err != nil {
 		panic("error establishing DB connection")
