@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"net/http"
-
 	"github.com/tirlochanarora16/todo_api_go/database"
+	"log"
+	"net/http"
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 		panic("error establishing DB connection")
 	}
 
-	fmt.Println("DB connected successfully")
+	log.Println("DB connected successfully", database.DB.Migrator().HasTable("users"))
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("hello world 123"))
