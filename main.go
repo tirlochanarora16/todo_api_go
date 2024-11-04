@@ -1,23 +1,32 @@
 package main
 
 import (
-	"fmt"
 	"github.com/tirlochanarora16/todo_api_go/database"
 	"log"
 	"net/http"
 )
 
 func main() {
+	// establishing DB connection
 	err := database.EstablishDBConnection()
 
+	// checking for err while connecting to DB
 	if err != nil {
-		panic("error establishing DB connection")
+		log.Fatal("error establishing DB connection")
+		return
 	}
 
-	log.Println("DB connected successfully", database.DB.Migrator().HasTable("users"))
+	log.Println("DB connected successfully")
+
+	// run DB migrations
+	err = database.RunAutomigration()
+
+	if err != nil {
+		return
+	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("hello world 123"))
+		w.Write([]byte("Backend Worked!"))
 	})
 
 	err = http.ListenAndServe(":3000", nil)
@@ -25,6 +34,4 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Hello world")
 }
