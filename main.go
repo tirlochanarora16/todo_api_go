@@ -1,14 +1,23 @@
 package main
 
 import (
+	"github.com/joho/godotenv"
 	"github.com/tirlochanarora16/todo_api_go/database"
 	"log"
 	"net/http"
 )
 
 func main() {
+	// load env variables
+	err := godotenv.Load()
+
+	if err != nil {
+		log.Fatal("Error loading environment variables!")
+		return
+	}
+
 	// establishing DB connection
-	err := database.EstablishDBConnection()
+	err = database.EstablishDBConnection()
 
 	// checking for err while connecting to DB
 	if err != nil {

@@ -4,12 +4,13 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
+	"os"
 )
 
 var DB *gorm.DB
 
 func EstablishDBConnection() error {
-	dbUrl := "host=localhost user=tirlochan password=password dbname=todo_app sslmode=disable"
+	dbUrl := os.Getenv("DB_CONN_STR")
 
 	db, err := gorm.Open(postgres.Open(dbUrl), &gorm.Config{})
 
